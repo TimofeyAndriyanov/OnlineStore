@@ -8,10 +8,15 @@ import ru.onlinestore.mobile.core.ResultContainer
 import ru.onlinestore.mobile.ui.models.ProductUi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import ru.onlinestore.mobile.core.LoadingResult
+import javax.inject.Inject
 
-class GetListProductsUseCase(private val productRepository: ProductRepository) {
+class GetListProductsUseCase @Inject constructor(
+    private val productRepository: ProductRepository
+) {
 
     operator fun invoke(): Flow<ResultContainer<ProductListUi>> = flow {
+        emit(LoadingResult())
         emit(productRepository.fetchListProducts().map(mapper))
     }
 

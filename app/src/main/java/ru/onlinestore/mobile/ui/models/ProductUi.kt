@@ -4,7 +4,7 @@ data class ProductUi(
     val id: Long,
     val title: String,
     val description: String,
-    val price: Int,
+    val price: Long,
     val discountPercentage: Double,
     val rating: Double,
     val stock: Int,

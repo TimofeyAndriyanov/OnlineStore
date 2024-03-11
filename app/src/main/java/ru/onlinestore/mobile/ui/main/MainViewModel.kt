@@ -2,6 +2,7 @@ package ru.onlinestore.mobile.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -11,8 +12,10 @@ import ru.onlinestore.mobile.core.LoadingResult
 import ru.onlinestore.mobile.core.SuccessResult
 import ru.onlinestore.mobile.domain.usecase.GetListProductsUseCase
 import ru.onlinestore.mobile.ui.states.MainState
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val getListProductsUseCase: GetListProductsUseCase
 ): ViewModel() {
 
@@ -39,7 +42,7 @@ class MainViewModel(
                     is SuccessResult -> _stateFlow.update {
                         it.copy(
                             loading = false,
-                            channels = result.data.products
+                            products = result.data.products
                         )
                     }
                 }

@@ -7,8 +7,9 @@ import ru.onlinestore.mobile.data.sources.ProductsRemoteSource
 import ru.onlinestore.mobile.domain.models.ProductDomain
 import ru.onlinestore.mobile.domain.models.ProductListDomain
 import ru.onlinestore.mobile.domain.repository.ProductRepository
+import javax.inject.Inject
 
-class ProductRepositoryImpl(
+class ProductRepositoryImpl @Inject constructor(
     private val productsRemoteSource: ProductsRemoteSource
 ): ProductRepository {
 

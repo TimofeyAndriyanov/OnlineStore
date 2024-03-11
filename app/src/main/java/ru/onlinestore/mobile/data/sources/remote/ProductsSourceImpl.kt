@@ -4,8 +4,9 @@ import ru.onlinestore.mobile.data.sources.ProductsRemoteSource
 import ru.onlinestore.mobile.data.sources.remote.dto.*
 import ru.onlinestore.mobile.data.models.*
 import ru.onlinestore.mobile.core.*
+import javax.inject.Inject
 
-class ProductsSourceImpl(
+class ProductsSourceImpl @Inject constructor(
     private val productsApiService: ProductsApiService
 ): ProductsRemoteSource {
 
