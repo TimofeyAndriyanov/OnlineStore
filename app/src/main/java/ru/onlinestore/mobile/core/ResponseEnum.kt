@@ -4,6 +4,7 @@ enum class ResponseEnum {
     SUCCESS,
     LOADING,
     ERROR,
+    INVALID,
     EMPTY,
     DEFAULT
 }
