@@ -10,14 +10,14 @@ import ru.onlinestore.mobile.data.sources.ProductsRemoteSource
 
 class ProductsRemoteSourceImpl(private val client: HttpClient): ProductsRemoteSource {
 
-    override suspend fun fetchProducts(url: String): Response<ProductListData> =
+    override suspend fun fetchProducts(url: String): Response<ProductListData, Nothing> =
         try {
             val get = client.get(urlString = url)
 
             Response.Success(data = get.body())
         } catch (exception: Exception) { Response.Error(exception = exception) }
 
-    override suspend fun fetchCategoryList(): Response<List<CategoryData>> =
+    override suspend fun fetchCategoryList(): Response<List<CategoryData>, Nothing> =
         try {
             val get = client.get("products/categories")
 

@@ -6,7 +6,7 @@ import ru.onlinestore.mobile.data.entities.ProductListData
 
 interface ProductsRemoteSource {
 
-    suspend fun fetchProducts(url: String): Response<ProductListData>
+    suspend fun fetchProducts(url: String): Response<ProductListData, Nothing>
 
-    suspend fun fetchCategoryList(): Response<List<CategoryData>>
+    suspend fun fetchCategoryList(): Response<List<CategoryData>, Nothing>
 }

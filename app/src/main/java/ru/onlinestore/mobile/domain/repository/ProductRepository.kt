@@ -6,7 +6,7 @@ import ru.onlinestore.mobile.domain.entities.ProductListDomain
 
 interface ProductRepository {
 
-    suspend fun fetchProducts(url: String): Response<ProductListDomain>
+    suspend fun fetchProducts(url: String): Response<ProductListDomain, Nothing>
 
-    suspend fun fetchCategoryList(): Response<List<CategoryDomain>>
+    suspend fun fetchCategoryList(): Response<List<CategoryDomain>, Nothing>
 }
