@@ -1,8 +1,15 @@
 package ru.onlinestore.mobile.ui.util
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.network.ktor3.KtorNetworkFetcherFactory
@@ -15,6 +22,7 @@ import ru.onlinestore.mobile.di.koinModule
 fun ImageNetwork(
     link: String,
     contentDescription: String? = null,
+    shape: Shape = RoundedCornerShape(0.dp),
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -26,6 +34,7 @@ fun ImageNetwork(
         }.build(),
         modifier = modifier
     )
+
 }
 
 @Composable
