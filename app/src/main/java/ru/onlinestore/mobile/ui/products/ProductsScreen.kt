@@ -27,13 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.onlinestore.mobile.ui.entities.CategoryUI
-import ru.onlinestore.mobile.ui.entities.ProductsState
+import ru.onlinestore.mobile.ui.entities.state.ProductsState
 
 @Preview
 @Composable
 private fun ProductsScreenPreview() =
     ProductsScreen(
-        state = ProductsState.default(),
+        state = ProductsState(),
         choiceCategory = {}
     )
 
@@ -44,6 +44,7 @@ fun ProductsScreen(
     choiceCategory: (CategoryUI) -> Unit
 ) {
     Log.d("ProductsScreen", state.toString())
+    var selectedItem by remember { mutableStateOf(CategoryUI()) }
 
     Scaffold(
         topBar = {
@@ -67,9 +68,6 @@ fun ProductsScreen(
                     //    )
                     //}
                 )
-
-                var selectedItem by remember { mutableStateOf(CategoryUI.default()) }
-
                 LazyRow(
                     content = {
                         items(state.categoryState.categoryList) { item ->
@@ -91,7 +89,7 @@ fun ProductsScreen(
         content = { padding ->
             if (!state.isScreenMessage)
                 LazyColumn(
-                    content = { items(state.content.products) { ProductItem(it) } },
+                    content = { items(state.productState.content.products) { ProductItem(it) } },
                     modifier = Modifier.padding(padding)
                 )
             else
