@@ -3,8 +3,8 @@ package ru.onlinestore.mobile.ui.navigation.secondary
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class SecondaryScreens {
+sealed interface SecondaryScreens {
 
     @Serializable
-    data object Products: SecondaryScreens()
+    data object Products: SecondaryScreens
 }

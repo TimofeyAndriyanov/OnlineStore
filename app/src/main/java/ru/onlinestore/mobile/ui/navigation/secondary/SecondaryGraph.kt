@@ -28,6 +28,7 @@ fun SecondaryGraph(
                     choiceCategory = { vm.loadProducts(it.url) }
                 )
             }
+
         },
         modifier = modifier
     )
