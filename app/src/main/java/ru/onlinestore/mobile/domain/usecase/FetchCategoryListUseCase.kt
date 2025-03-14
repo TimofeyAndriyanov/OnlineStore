@@ -8,8 +8,8 @@ import ru.onlinestore.mobile.ui.entities.CategoryUI
 
 class FetchCategoryListUseCase(private val repository: ProductRepository) {
 
-    operator fun invoke(): Flow<Response<List<CategoryUI>>> = flow {
+    operator fun invoke(): Flow<Response<List<CategoryUI>, Nothing>> = flow {
         emit(Response.Loading)
-        emit(repository.fetchCategoryList().map { it -> it.map { it.toUI() } })
+        emit(repository.fetchCategoryList().mapT { it -> it.map { it.toUI() } })
     }
 }

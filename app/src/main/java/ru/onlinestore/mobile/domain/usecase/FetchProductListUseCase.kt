@@ -8,8 +8,8 @@ import ru.onlinestore.mobile.ui.entities.ProductListUI
 
 class FetchProductListUseCase(private val repository: ProductRepository) {
 
-    operator fun invoke(url: String): Flow<Response<ProductListUI>> = flow {
+    operator fun invoke(url: String): Flow<Response<ProductListUI, Nothing>> = flow {
         emit(Response.Loading)
-        emit(repository.fetchProducts(url = url).map { it.toUI() })
+        emit(repository.fetchProducts(url = url).mapT { it.toUI() })
     }
 }

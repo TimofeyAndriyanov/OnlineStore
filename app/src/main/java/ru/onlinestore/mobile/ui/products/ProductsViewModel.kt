@@ -1,7 +1,7 @@
 package ru.onlinestore.mobile.ui.products
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,16 +11,17 @@ import ru.onlinestore.mobile.core.Response
 import ru.onlinestore.mobile.core.ResponseEnum
 import ru.onlinestore.mobile.domain.usecase.FetchCategoryListUseCase
 import ru.onlinestore.mobile.domain.usecase.FetchProductListUseCase
-import ru.onlinestore.mobile.ui.entities.CategoryState
+import ru.onlinestore.mobile.ui.entities.state.CategoryState
 import ru.onlinestore.mobile.ui.entities.ProductListUI
-import ru.onlinestore.mobile.ui.entities.ProductsState
+import ru.onlinestore.mobile.ui.entities.state.ProductState
+import ru.onlinestore.mobile.ui.entities.state.ProductsState
 
 class ProductsViewModel(
     private val fetchProductListUseCase: FetchProductListUseCase,
     private val fetchCategoryListUseCase: FetchCategoryListUseCase
 ): ViewModel() {
 
-    private val _stateflow = MutableStateFlow(ProductsState.default())
+    private val _stateflow = MutableStateFlow(ProductsState())
     val stateflow = _stateflow.asStateFlow()
 
     init {
@@ -29,52 +30,62 @@ class ProductsViewModel(
     }
 
     fun loadProducts(url: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             fetchProductListUseCase(url).collect { response ->
                 when(response) {
                     is Response.Success ->
                         _stateflow.update {
                             it.copy(
-                                content = response.data,
-                                state = ResponseEnum.SUCCESS,
-                                exception = "",
+                                productState = ProductState(
+                                    content = response.data,
+                                    state = ResponseEnum.SUCCESS,
+                                    exception = "",
+                                ),
                                 isScreenMessage = false
                             )
                         }
                     is Response.Empty ->
                         _stateflow.update {
                             it.copy(
-                                content = ProductListUI.default(),
-                                state = ResponseEnum.EMPTY,
-                                exception = "",
+                                productState = ProductState(
+                                    content = ProductListUI(),
+                                    state = ResponseEnum.EMPTY,
+                                    exception = "",
+                                ),
                                 isScreenMessage = true
                             )
                         }
                     is Response.Error ->
                         _stateflow.update {
                             it.copy(
-                                content = ProductListUI.default(),
-                                state = ResponseEnum.ERROR,
-                                exception = response.exception.toString(),
+                                productState = ProductState(
+                                    content = ProductListUI(),
+                                    state = ResponseEnum.ERROR,
+                                    exception = response.exception.toString(),
+                                ),
                                 isScreenMessage = true
                             )
                         }
                     is Response.Loading ->
                         _stateflow.update {
                             it.copy(
-                                content = ProductListUI.default(),
-                                state = ResponseEnum.LOADING,
-                                exception = "",
+                                productState = ProductState(
+                                    content = ProductListUI(),
+                                    state = ResponseEnum.LOADING,
+                                    exception = "",
+                                ),
                                 isScreenMessage = true
                             )
                         }
+
+                    is Response.Invalid -> TODO()
                 }
             }
         }
     }
 
     private fun loadCategoryList() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             fetchCategoryListUseCase().collect { response ->
                 when(response) {
                     is Response.Success ->
@@ -118,16 +129,18 @@ class ProductsViewModel(
                                 )
                             )
                         }
+
+                    is Response.Invalid -> TODO()
                 }
             }
         }
     }
 
     private fun screenMessage() {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _stateflow.collect { response ->
                 if (response.isScreenMessage) {
-                    when(response.state) {
+                    when(response.productState.state) {
                         ResponseEnum.SUCCESS ->
                             _stateflow.update {
                                 it.copy(
@@ -146,7 +159,7 @@ class ProductsViewModel(
                         ResponseEnum.ERROR ->
                             _stateflow.update {
                                 it.copy(
-                                    screenMessage = it.exception,
+                                    screenMessage = it.productState.exception,
                                     isScreenMessage = true,
                                     isLoading = false
                                 )
@@ -167,6 +180,8 @@ class ProductsViewModel(
                                     isLoading = false
                                 )
                             }
+
+                        ResponseEnum.INVALID -> TODO()
                     }
                 }
             }
