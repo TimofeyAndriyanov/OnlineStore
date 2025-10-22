@@ -2,13 +2,13 @@ package ru.onlinestore.mobile.ui.entities.state
 
 import ru.onlinestore.mobile.core.ResponseEnum
 import ru.onlinestore.mobile.ui.entities.MessageUI
-import ru.onlinestore.mobile.ui.entities.auth.AuthRequestBodyUI
-import ru.onlinestore.mobile.ui.entities.auth.AuthResponseBodyUI
+import ru.onlinestore.mobile.ui.entities.log_in.LogInRequestBodyUI
+import ru.onlinestore.mobile.ui.entities.log_in.LogInResponseBodyUI
 
-data class AuthState(
+data class LogInState(
     val state: ResponseEnum = ResponseEnum.DEFAULT,
-    val request: AuthRequestBodyUI = AuthRequestBodyUI(),
-    val response: AuthResponseBodyUI = AuthResponseBodyUI(),
+    val request: LogInRequestBodyUI = LogInRequestBodyUI(),
+    val response: LogInResponseBodyUI = LogInResponseBodyUI(),
     val invalidResponse: MessageUI = MessageUI(),
     val exceptionMessage: String = "",
     val invalidMessage: String = invalidResponse.message,
