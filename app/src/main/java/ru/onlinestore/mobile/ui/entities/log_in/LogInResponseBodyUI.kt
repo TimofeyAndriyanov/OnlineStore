@@ -1,6 +1,6 @@
-package ru.onlinestore.mobile.ui.entities.auth
+package ru.onlinestore.mobile.ui.entities.log_in
 
-data class AuthResponseBodyUI(
+data class LogInResponseBodyUI(
     val id: Long = 0,
     val username: String = "",
     val image: String = "",

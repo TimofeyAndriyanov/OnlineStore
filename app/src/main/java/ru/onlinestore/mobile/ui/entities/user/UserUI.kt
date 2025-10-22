@@ -1,5 +1,4 @@
-package ru.onlinestore.mobile.ui.entities
-
+package ru.onlinestore.mobile.ui.entities.user
 
 data class UserUI(
     val id: Long,

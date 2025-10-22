@@ -4,7 +4,7 @@ import ru.onlinestore.mobile.core.ResponseEnum
 import ru.onlinestore.mobile.ui.entities.CategoryUI
 
 data class CategoryState(
-    val state: ResponseEnum = ResponseEnum.DEFAULT,
-    val exception: String = "",
-    val categoryList: List<CategoryUI> = emptyList()
+    val state: ResponseEnum = ResponseEnum.UNKNOW,
+    val invalidMessage: String = "",
+    val content: List<CategoryUI> = emptyList()
 )

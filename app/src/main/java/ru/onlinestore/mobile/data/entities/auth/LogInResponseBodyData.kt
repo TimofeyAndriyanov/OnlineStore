@@ -1,6 +1,9 @@
-package ru.onlinestore.mobile.domain.entities.auth
+package ru.onlinestore.mobile.data.entities.auth
 
-data class AuthResponseBodyDomain(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class LogInResponseBodyData(
     val id: Long,
     val username: String,
     val image: String,
