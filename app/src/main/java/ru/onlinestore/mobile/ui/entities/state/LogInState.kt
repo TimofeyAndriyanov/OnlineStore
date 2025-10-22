@@ -6,7 +6,7 @@ import ru.onlinestore.mobile.ui.entities.log_in.LogInRequestBodyUI
 import ru.onlinestore.mobile.ui.entities.log_in.LogInResponseBodyUI
 
 data class LogInState(
-    val state: ResponseEnum = ResponseEnum.DEFAULT,
+    val state: ResponseEnum = ResponseEnum.UNKNOW,
     val request: LogInRequestBodyUI = LogInRequestBodyUI(),
     val response: LogInResponseBodyUI = LogInResponseBodyUI(),
     val invalidResponse: MessageUI = MessageUI(),
