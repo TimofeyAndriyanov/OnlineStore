@@ -13,7 +13,9 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import ru.onlinestore.mobile.core.DefaultCoreProvider
 import ru.onlinestore.mobile.data.sources.locale.room.OnlineStoreDatabase
 
 val koinModule = module {
@@ -31,7 +33,6 @@ val koinModule = module {
             install(Resources)
         }
     }
-
     single<OnlineStoreDatabase> {
         Room.databaseBuilder(
                 context = get<Context>(),
@@ -39,4 +40,5 @@ val koinModule = module {
                 name = "database"
         ).fallbackToDestructiveMigration(false).build()
     }
+    singleOf(::DefaultCoreProvider)
 }
