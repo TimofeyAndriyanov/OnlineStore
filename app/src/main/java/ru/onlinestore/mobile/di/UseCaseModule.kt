@@ -2,14 +2,7 @@ package ru.onlinestore.mobile.di
 
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import ru.onlinestore.mobile.domain.usecase.FetchCategoryListUseCase
-import ru.onlinestore.mobile.domain.usecase.FetchMeUseCase
-import ru.onlinestore.mobile.domain.usecase.FetchProductListUseCase
-import ru.onlinestore.mobile.domain.usecase.FetchRefreshUseCase
-import ru.onlinestore.mobile.domain.usecase.FetchUserListUseCase
-import ru.onlinestore.mobile.domain.usecase.FindUserByIdUseCase
-import ru.onlinestore.mobile.domain.usecase.LogInUseCase
-import ru.onlinestore.mobile.domain.usecase.SearchUserByNameUseCase
+import ru.onlinestore.mobile.domain.usecase.*
 
 val UseCaseModule = module {
     singleOf(::FetchProductListUseCase)
@@ -20,4 +13,6 @@ val UseCaseModule = module {
     singleOf(::FetchRefreshUseCase)
     singleOf(::FindUserByIdUseCase)
     singleOf(::SearchUserByNameUseCase)
+    singleOf(::FetchProductByIdUseCase)
+    singleOf(::FetchBrandListByCategoryUseCase)
 }
